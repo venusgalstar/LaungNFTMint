@@ -7,6 +7,7 @@
     "@babel/runtime": "^7.15.5",
     "@civic/solana-gateway-react": "^0.10.0",
     "@identity.com/solana-gateway-ts": "^0.10.0",
+    "@metaplex-foundation/js": "^0.20.1",
     "@mui/icons-material": "^5.10.9",
     "@mui/lab": "^5.0.0-alpha.104",
     "@mui/material": "^5.10.10",
@@ -34,7 +35,7 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "craco --openssl-legacy-provider start",
+    "start": "craco start",
     "lint": "prettier -c 'src/**/*.{ts,tsx}' && npm run lint:eslint",
     "lint:eslint": "eslint 'src/**/*.{ts,tsx}'",
     "lint:fix": "prettier --write 'src/**/*.{ts,tsx}' && eslint --fix 'src/**/*.{ts,tsx}'",
