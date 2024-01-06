@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 
 // Components
-import { RequestAirdrop } from '../components/RequestAirdrop';
+// import { RequestAirdrop } from '../components/RequestAirdrop';
 
 // Store
 import useUserSOLBalanceStore from '../stores/useUserSOLBalanceStore';
@@ -43,7 +43,7 @@ export const HomeView: FC = ({ }) => {
             <NftMinter />
           </div>
           <div className="flex flex-col mt-12">
-            <RequestAirdrop />
+            {/* <RequestAirdrop /> */}
             <h4 className="md:w-full text-2xl text-slate-300 my-2">
             {wallet &&
             <div className="flex flex-row justify-center">
