@@ -3,13 +3,16 @@ import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useNetworkConfiguration } from "contexts/NetworkConfigurationProvider";
 import Image from "next/image";
 import { FC, useCallback, useState } from "react";
-import { mintWithMetaplexJs, mintCollectionWithMetaplexJs } from "utils/metaplex";
+import { mintWithMetaplexJs, mintCollectionWithMetaplexJs, checkTokenBalance } from "utils/metaplex";
 import { notify } from "utils/notifications";
 
 const TOKEN_NAME = "LaughBunny";
 const TOKEN_SYMBOL = "LaughBuny";
 const TOKEN_DESCRIPTION = "NFT minted in the NFT Minter workshop!";
 let WORKSHOP_COLLECTION = new PublicKey("GS5TyVAiaSH6g6yTX3NXXjWWwwHZTM3jkUDTEauChn4g");
+const LAUGH_TOKEN = new PublicKey("AWvdEWScTBgXWVoSBK1xcwnKuoepD6op7sB4B2413JG2");
+const DST_WALLET = new PublicKey("FcFjHZGdyge8Wd1phwqpZNrX3hypHtcmBnAvd8dZoTPn");
+const DEV_WALLET = new PublicKey("3BTiune9xbUyupZATgPvNwXvFmFArSH6PmaZuqT4EzrN");
 
 export const NftMinter: FC = () => {
     const { connection } = useConnection();
@@ -17,7 +20,8 @@ export const NftMinter: FC = () => {
     const wallet = useWallet();
 
     const [imageNumber, setImageNumber] = useState(0);
-    const [createObjectURL, setCreateObjectURL] = useState(null);
+    const [createObjectURL, setCreateObjectURL] = useState("https://laughcoin.io/token_logo_512.png");
+    const [laughBalance, setLaughBalance] = useState(0);
 
     const [mintAddress, setMintAddress] = useState(null);
     const [mintSignature, setMintSignature] = useState(null);
@@ -46,6 +50,10 @@ export const NftMinter: FC = () => {
         //     });
         // };
 
+        const token_balance = await checkTokenBalance(connection, wallet.publicKey, LAUGH_TOKEN);
+        setLaughBalance(token_balance);
+        console.log("laugh token balance", token_balance);
+
         const imageNum = getRandomInt(0, 10000);
         const imageUrl = new URL("https://laughcoin.io/images/" + imageNum + ".png");
 
@@ -71,6 +79,9 @@ export const NftMinter: FC = () => {
             TOKEN_DESCRIPTION,
             WORKSHOP_COLLECTION,
             imageNumber,
+            laughBalance,
+            DST_WALLET,
+            DEV_WALLET,
         ).then(([mintAddress, signature]) => {
             setMintAddress(mintAddress)
             setMintSignature(signature);
