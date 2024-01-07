@@ -99,7 +99,7 @@ export async function mintWithMetaplexJs(
         isCollection: false,
         collection: collection,
         isMutable: false,
-        collectionAuthority: wallet as any,
+        // collectionAuthority: wallet as any,
     });
 
     return [nft.address.toBase58(), response.signature];

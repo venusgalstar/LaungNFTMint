@@ -25,9 +25,11 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const { autoConnect } = useAutoConnect();
     const { networkConfiguration } = useNetworkConfiguration();
     const network = networkConfiguration as WalletAdapterNetwork;
-    const endpoint = useMemo(() => process.env.RPC_ENDPOINT ?? "https://api.devnet.solana.com", []);
+    // const endpoint = useMemo(() => process.env.RPC_ENDPOINT ?? "https://api.devnet.solana.com", []);
+    const endpoint = useMemo(() => process.env.RPC_ENDPOINT ?? "https://api.metaplex.solana.com", []);
 
-    console.log(network);
+    console.log("WalletContextProvider", network);
+    console.log("WalletContextProvider endpoint", endpoint);
 
     const wallets = useMemo(
         () => [

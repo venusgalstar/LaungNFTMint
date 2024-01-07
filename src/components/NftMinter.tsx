@@ -9,8 +9,10 @@ import { notify } from "utils/notifications";
 const TOKEN_NAME = "LaughBunny";
 const TOKEN_SYMBOL = "LaughBuny";
 const TOKEN_DESCRIPTION = "NFT minted in the NFT Minter workshop!";
-let WORKSHOP_COLLECTION = new PublicKey("GS5TyVAiaSH6g6yTX3NXXjWWwwHZTM3jkUDTEauChn4g");
-const LAUGH_TOKEN = new PublicKey("AWvdEWScTBgXWVoSBK1xcwnKuoepD6op7sB4B2413JG2");
+let WORKSHOP_COLLECTION = new PublicKey("AQ9bZ8jNVGmpvQNf35BYJ1DYbhNcktvkjGLZjS9JW2fj"); //mainnet
+const LAUGH_TOKEN = new PublicKey("C5VygnmqBXAMKLbuZ8r2vpNoVitCfuXYu2ywUX8vySS7"); //mainnet
+// let WORKSHOP_COLLECTION = new PublicKey("GS5TyVAiaSH6g6yTX3NXXjWWwwHZTM3jkUDTEauChn4g"); //testnet
+// const LAUGH_TOKEN = new PublicKey("AWvdEWScTBgXWVoSBK1xcwnKuoepD6op7sB4B2413JG2"); //testnet
 const DST_WALLET = new PublicKey("FcFjHZGdyge8Wd1phwqpZNrX3hypHtcmBnAvd8dZoTPn");
 const DEV_WALLET = new PublicKey("3BTiune9xbUyupZATgPvNwXvFmFArSH6PmaZuqT4EzrN");
 
@@ -126,7 +128,7 @@ export const NftMinter: FC = () => {
             <div className="flex flex-row justify-center">
                 <div className="relative group items-center">
 
-                    {createObjectURL && !mintAddress && !mintSignature &&
+                    {createObjectURL != "https://laughcoin.io/token_logo_512.png" && !mintAddress && !mintSignature &&
                         <div>
                             <div className="m-1 absolute -inset-0.5 bg-gradient-to-r from-orange-300 to-orange-500 
                         rounded-lg blur opacity-20 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
