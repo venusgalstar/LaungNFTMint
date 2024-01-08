@@ -2,7 +2,7 @@ import { PublicKey } from "@metaplex-foundation/js";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { useNetworkConfiguration } from "contexts/NetworkConfigurationProvider";
 import Image from "next/image";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { mintWithMetaplexJs, mintCollectionWithMetaplexJs, checkTokenBalance } from "utils/metaplex";
 import { notify } from "utils/notifications";
 
@@ -34,28 +34,7 @@ export const NftMinter: FC = () => {
         return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
     }
 
-    const uploadImage = async (event) => {
-        // if (event.target.files && event.target.files[0]) {
-        //     const uploadedImage = event.target.files[0];
-        //     // setImage(uploadedImage);
-
-        //     console.log("URL.createObjectURL(uploadedImage)", URL.createObjectURL(uploadedImage));
-        //     setCreateObjectURL(URL.createObjectURL(uploadedImage));
-        //     const body = new FormData();
-        //     body.append("file", uploadedImage);
-        //     await fetch("/api/upload", {
-        //         method: "POST",
-        //         body,
-        //     }).catch((res) => {
-        //         notify({ type: 'error', message: `Upload failed!`, description: res });
-        //         console.log('error', `Upload failed! ${res}`);
-        //     });
-        // };
-
-        const token_balance = await checkTokenBalance(connection, wallet.publicKey, LAUGH_TOKEN);
-        setLaughBalance(token_balance);
-        console.log("laugh token balance", token_balance);
-
+    const selectImage = async()=>{
         const imageNum = getRandomInt(0, 10000);
         const imageUrl = new URL("https://laughcoin.io/images/" + imageNum + ".png");
 
@@ -64,7 +43,26 @@ export const NftMinter: FC = () => {
 
         setImageNumber(imageNum);
         setCreateObjectURL(imageUrl.href);
-    };
+    }
+
+    useEffect(()=>{
+
+        const getBalance = async()=>{
+
+            if( wallet.connected ){
+                const token_balance = await checkTokenBalance(connection, wallet.publicKey, LAUGH_TOKEN);
+                setLaughBalance(token_balance);
+                console.log("laugh token balance", token_balance);
+            }
+        }
+        
+        getBalance();
+       
+    }, [wallet, networkConfiguration]);
+
+    useEffect(()=>{
+        selectImage();
+    },[]);
 
     const onClickMintNft = useCallback(async () => {
         if (!wallet.publicKey) {
@@ -87,6 +85,8 @@ export const NftMinter: FC = () => {
         ).then(([mintAddress, signature]) => {
             setMintAddress(mintAddress)
             setMintSignature(signature);
+        }).catch((e)=>{
+            console.log("error", e);
         });
     }, [wallet, connection, networkConfiguration, imageNumber]);
 
@@ -116,14 +116,6 @@ export const NftMinter: FC = () => {
         <div>
             <div className="mx-auto flex flex-col">
                 {createObjectURL && <Image className="mx-auto mb-4" alt='uploadedImage' width='300' height='300' src={createObjectURL} />}
-                {!mintAddress && !mintSignature && <div className="mx-auto text-center mb-2">
-                    <button
-                        className="px-8 m-2 btn animate-pulse bg-gradient-to-br from-indigo-500 to-fuchsia-500 hover:from-white hover:to-purple-300 text-black"
-                        onClick={uploadImage}
-                    >
-                        <span>Select Image!</span>
-                    </button>
-                </div>}
             </div>
             <div className="flex flex-row justify-center">
                 <div className="relative group items-center">

@@ -35,22 +35,13 @@ export const HomeView: FC = ({ }) => {
             LAUGH BUNNY NFT
           </h1>
         </div>
-        <h4 className="md:w-full text-2x1 md:text-4xl text-center text-slate-300 my-2">
-          <p>Select Laugh Bunny!</p>
-        </h4>
-        {wallet.connected ? <div>
+        <div>
           <div className="flex flex-row mt-6">
-            <div className="flex flex-col mt-6 w-1/2">
-              <p className="text-center text-2x1 md:text-2xl font-bold text-slate-300 ">
-                <span className="text-2x1 md:text-3xl">Greetings Crypto Enthusiasts,</span>
-                We are thrilled to present LaughCoin, the latest addition to the meme token universe!
-                Born out of a commitment to infuse joy and humor into the cryptocurrency landscape,
-                LaughCoin is more than just a token; it is a celebration of laughter, creativity, and community spirit.
+            <div className="flex flex-col mt-6 w-1/2 text-center text-2x1 md:text-2xl font-bol text-slate-300 text-wrap">
+              <p className="w-full break-words">
+                Contract Address: AQ9bZ8jNVGmpvQNf35BYJ1DYbhNcktvkjGLZjS9JW2fj
               </p>
-              <p className="text-center text-2x1 md:text-2xl font-bol text-slate-300">
-                Contract Address: C5VygnmqBXAMKLbuZ8r2vpNoVitCfuXYu2ywUX8vySS7
-              </p>
-              <p className="text-center text-2x1 md:text-2xl font-bol text-slate-300 mt-6">
+              <p className="mt-6 w-full">
                 Orignial Price   : 0.19 SOL <br></br>
                 Holders Under 1M : 0.185 SOL<br></br>
                 Holders Under 1B : 0.18 SOL<br></br>
@@ -82,13 +73,6 @@ export const HomeView: FC = ({ }) => {
             </h4>
           </div>
         </div>
-          :
-          <div>
-            <h4 className="md:w-full text-2xl text-slate-300 mt-8">
-              Connect Your Wallet!
-            </h4>
-          </div>
-        }
       </div>
     </div>
   );

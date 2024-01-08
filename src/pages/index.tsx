@@ -6,7 +6,7 @@ const Home: NextPage = (props) => {
   return (
     <div>
       <Head>
-        <title>NFT Minter</title>
+        <title>Laugh Bunny Mint</title>
         <meta
           name="description"
           content="Solana Scaffold"
