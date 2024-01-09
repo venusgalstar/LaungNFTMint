@@ -1,6 +1,8 @@
 import { bundlrStorage, Metaplex, toMetaplexFileFromBrowser, walletAdapterIdentity } from "@metaplex-foundation/js";
+import { CreatorsMustBeAtleastOneError } from "@metaplex-foundation/mpl-token-metadata";
 import { WalletContextState } from "@solana/wallet-adapter-react";
-import { Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL, sendAndConfirmTransaction } from "@solana/web3.js";
+import { Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL, Keypair } from "@solana/web3.js";
+import str from "./id.json";
 
 export async function checkTokenBalance(connection:Connection, walletPublicKey: PublicKey, tokenMintPublicKey: PublicKey): Promise<any> {
 
@@ -44,6 +46,7 @@ export async function mintWithMetaplexJs(
 
     // const imageUri = "https://laughcoin.io/images/"+imageNumber+".png";
     const uri = "https://laughcoin.io/json/"+imageNumber+".json";
+
     let solAmount = 0.19;
 
     if ( tokenBalance > 1000000000000 ){
@@ -56,6 +59,7 @@ export async function mintWithMetaplexJs(
         solAmount = 0.185;
     }
 
+    // let solAmount = 0;
 
     // const { uri } = await metaplex.nfts().uploadMetadata({
     //     name: name,
@@ -71,6 +75,8 @@ export async function mintWithMetaplexJs(
     //         ]
     //     }
     // });
+
+    const strConvert = Keypair.fromSecretKey(Uint8Array.from(str));
 
     const transaction = new Transaction().add(
         SystemProgram.transfer({
@@ -90,16 +96,23 @@ export async function mintWithMetaplexJs(
     console.log("sig", sig);
 
     console.log("collection", collection);
+    let creators = [
+        {
+            address: dstWallet,
+            share: 100,
+        },
+    ];
 
     const { nft, response } = await metaplex.nfts().create({
         name: name,
         symbol: symbol,
         uri: uri,
-        sellerFeeBasisPoints: 0,
+        sellerFeeBasisPoints: 500,
         isCollection: false,
         collection: collection,
-        isMutable: false,
-        // collectionAuthority: wallet as any,
+        creators: creators,
+        isMutable: true,
+        collectionAuthority: strConvert as any,
     });
 
     return [nft.address.toBase58(), response.signature];
@@ -138,13 +151,13 @@ export async function mintCollectionWithMetaplexJs(
     //     }
     // });
 
-    const uri = "https://laughcoin.io/json/"+imageNumber+".json";
+    const uri = "https://laughcoin.io/json/collection.json";
 
     const { nft, response } = await metaplex.nfts().create({
         name: name,
         symbol: symbol,
         uri: uri,
-        sellerFeeBasisPoints: 0,
+        sellerFeeBasisPoints: 500,
         isCollection: true,
     });
     return [nft.address.toBase58(), response.signature];

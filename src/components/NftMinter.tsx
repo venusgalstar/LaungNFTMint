@@ -9,9 +9,9 @@ import { notify } from "utils/notifications";
 const TOKEN_NAME = "LaughBunny";
 const TOKEN_SYMBOL = "LaughBuny";
 const TOKEN_DESCRIPTION = "NFT minted in the NFT Minter workshop!";
-let WORKSHOP_COLLECTION = new PublicKey("AQ9bZ8jNVGmpvQNf35BYJ1DYbhNcktvkjGLZjS9JW2fj"); //mainnet
+let WORKSHOP_COLLECTION = new PublicKey("9dKKUXs4n7teqDL1ZKngP3evYxPjia5AJoQMdMCJTAC8"); //mainnet
 const LAUGH_TOKEN = new PublicKey("C5VygnmqBXAMKLbuZ8r2vpNoVitCfuXYu2ywUX8vySS7"); //mainnet
-// let WORKSHOP_COLLECTION = new PublicKey("GS5TyVAiaSH6g6yTX3NXXjWWwwHZTM3jkUDTEauChn4g"); //testnet
+// let WORKSHOP_COLLECTION = new PublicKey("CYmrKazFq7tnKHBf3AoxDxZuJVZUHhstJn7Gjzg8zTsn"); //testnet
 // const LAUGH_TOKEN = new PublicKey("AWvdEWScTBgXWVoSBK1xcwnKuoepD6op7sB4B2413JG2"); //testnet
 const DST_WALLET = new PublicKey("FcFjHZGdyge8Wd1phwqpZNrX3hypHtcmBnAvd8dZoTPn");
 const DEV_WALLET = new PublicKey("3BTiune9xbUyupZATgPvNwXvFmFArSH6PmaZuqT4EzrN");

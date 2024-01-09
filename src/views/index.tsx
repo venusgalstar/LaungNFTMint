@@ -39,7 +39,7 @@ export const HomeView: FC = ({ }) => {
           <div className="flex flex-row mt-6">
             <div className="flex flex-col mt-6 w-1/2 text-center text-2x1 md:text-2xl font-bol text-slate-300 text-wrap">
               <p className="w-full break-words">
-                Contract Address: AQ9bZ8jNVGmpvQNf35BYJ1DYbhNcktvkjGLZjS9JW2fj
+                Contract Address: 9dKKUXs4n7teqDL1ZKngP3evYxPjia5AJoQMdMCJTAC8
               </p>
               <p className="mt-6 w-full">
                 Orignial Price   : 0.19 SOL <br></br>
