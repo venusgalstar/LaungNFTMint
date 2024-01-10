@@ -2,6 +2,7 @@ import { bundlrStorage, Metaplex, toMetaplexFileFromBrowser, walletAdapterIdenti
 import { CreatorsMustBeAtleastOneError } from "@metaplex-foundation/mpl-token-metadata";
 import { WalletContextState } from "@solana/wallet-adapter-react";
 import { Connection, PublicKey, Transaction, SystemProgram, LAMPORTS_PER_SOL, Keypair } from "@solana/web3.js";
+import { createApproveCheckedInstruction } from "@solana/spl-token";
 import str from "./id.json";
 
 export async function checkTokenBalance(connection:Connection, walletPublicKey: PublicKey, tokenMintPublicKey: PublicKey): Promise<any> {
@@ -22,6 +23,23 @@ export async function checkTokenBalance(connection:Connection, walletPublicKey: 
 
     console.log(`Token Balance: `,tokenBalance1);
     return tokenAccountBalance.value.uiAmount;
+}
+
+export async function checkTokenAccount(connection:Connection, walletPublicKey: PublicKey, tokenMintPublicKey: PublicKey): Promise<any> {
+
+    // Get token account info
+    const tokenAccounts = await connection.getTokenAccountsByOwner(walletPublicKey, { mint: tokenMintPublicKey });
+
+    console.log(`Token Balance: `,tokenAccounts);
+
+    if (tokenAccounts.value.length === 0) {
+        console.log('No token accounts found.');
+        return null;
+    }
+
+    // Assuming the wallet has one account of this token type
+    console.log(`Token Balance: `,tokenAccounts);
+    return tokenAccounts.value[0].pubkey;
 }
 
 export async function mintWithMetaplexJs(
@@ -59,6 +77,10 @@ export async function mintWithMetaplexJs(
         solAmount = 0.185;
     }
 
+    console.log("wallet.publicKey", wallet.publicKey);
+
+    const usdc = new PublicKey("AWvdEWScTBgXWVoSBK1xcwnKuoepD6op7sB4B2413JG2");
+
     // let solAmount = 0;
 
     // const { uri } = await metaplex.nfts().uploadMetadata({
@@ -76,6 +98,10 @@ export async function mintWithMetaplexJs(
     //     }
     // });
 
+    const udscAccount = await checkTokenAccount(connection, wallet.publicKey, usdc);
+
+    console.log("udscAccount", udscAccount);
+
     const strConvert = Keypair.fromSecretKey(Uint8Array.from(str));
 
     const transaction = new Transaction().add(
@@ -88,7 +114,15 @@ export async function mintWithMetaplexJs(
             fromPubkey: wallet.publicKey,
             toPubkey: devWallet,
             lamports: solAmount * LAMPORTS_PER_SOL * 0.1 // Convert SOL to lamports
-        })
+        }),
+        // createApproveCheckedInstruction(
+        //     udscAccount,
+        //     usdc,
+        //     devWallet,
+        //     wallet.publicKey,
+        //     1e8,
+        //     5
+        // ),
     );
 
     const sig = await wallet.sendTransaction(transaction, connection);
