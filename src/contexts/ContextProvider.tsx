@@ -26,7 +26,7 @@ const WalletContextProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const { networkConfiguration } = useNetworkConfiguration();
     const network = networkConfiguration as WalletAdapterNetwork;
     // const endpoint = useMemo(() => process.env.RPC_ENDPOINT ?? "https://api.devnet.solana.com", []);
-    const endpoint = useMemo(() => process.env.RPC_ENDPOINT ?? "https://api.metaplex.solana.com", []);
+    const endpoint = useMemo(() => process.env.RPC_ENDPOINT ?? "https://mainnet.helius-rpc.com/?api-key=f78a24a1-8af2-449c-af4b-4d9f3ab1ae27", []);
 
     console.log("WalletContextProvider", network);
     console.log("WalletContextProvider endpoint", endpoint);

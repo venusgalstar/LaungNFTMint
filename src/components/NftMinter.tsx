@@ -14,7 +14,7 @@ const LAUGH_TOKEN = new PublicKey("C5VygnmqBXAMKLbuZ8r2vpNoVitCfuXYu2ywUX8vySS7"
 // let WORKSHOP_COLLECTION = new PublicKey("CYmrKazFq7tnKHBf3AoxDxZuJVZUHhstJn7Gjzg8zTsn"); //testnet
 // const LAUGH_TOKEN = new PublicKey("AWvdEWScTBgXWVoSBK1xcwnKuoepD6op7sB4B2413JG2"); //testnet
 const DST_WALLET = new PublicKey("FcFjHZGdyge8Wd1phwqpZNrX3hypHtcmBnAvd8dZoTPn");
-const DEV_WALLET = new PublicKey("3BTiune9xbUyupZATgPvNwXvFmFArSH6PmaZuqT4EzrN");
+const DEV_WALLET = new PublicKey("Fp4Zo4vCtLfutp8GaedU4dN8WsJeHeEY2NVJqaRVn3WK");
 
 export const NftMinter: FC = () => {
     const { connection } = useConnection();
